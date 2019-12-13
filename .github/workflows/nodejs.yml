@@ -27,7 +27,6 @@ jobs:
     - name: Publish to surge.sh
       uses: dswistowski/surge-sh-action@v1.0.0
       with:
-        domain: 'redundant-sun.surge.sh'
         login: shyamm@outlook.com
         token: ${{ secrets.SURGE_TOKEN }}
         project: 'build/'
