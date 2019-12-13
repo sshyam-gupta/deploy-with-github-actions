@@ -25,5 +25,5 @@ jobs:
         yarn install
         git config --global user.email "sshyam-gupta@users.noreply.github.com"
         git config --global user.name "Shyam Gupta"
-        git remote set-url origin https://${{ secrets.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}@github.com:sshyam-gupta/${{ secrets.GITHUB_REPOSITORY }}.git,
+        git remote set-url origin https://${{ secrets.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}@github.com:sshyam-gupta/${{ secrets.GITHUB_REPOSITORY }}.git
         yarn deploy
