@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/deploy-with-github-actions/static/css/main.d1b05096.chunk.css",
+    "main.js": "/deploy-with-github-actions/static/js/main.d8a6780b.chunk.js",
+    "main.js.map": "/deploy-with-github-actions/static/js/main.d8a6780b.chunk.js.map",
+    "runtime-main.js": "/deploy-with-github-actions/static/js/runtime-main.18807cfa.js",
+    "runtime-main.js.map": "/deploy-with-github-actions/static/js/runtime-main.18807cfa.js.map",
+    "static/js/2.8dbfc4e5.chunk.js": "/deploy-with-github-actions/static/js/2.8dbfc4e5.chunk.js",
+    "static/js/2.8dbfc4e5.chunk.js.map": "/deploy-with-github-actions/static/js/2.8dbfc4e5.chunk.js.map",
+    "index.html": "/deploy-with-github-actions/index.html",
+    "precache-manifest.114aefbf1808468a8f23d3ff8aeead2c.js": "/deploy-with-github-actions/precache-manifest.114aefbf1808468a8f23d3ff8aeead2c.js",
+    "service-worker.js": "/deploy-with-github-actions/service-worker.js",
+    "static/css/main.d1b05096.chunk.css.map": "/deploy-with-github-actions/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.8dbfc4e5.chunk.js.LICENSE": "/deploy-with-github-actions/static/js/2.8dbfc4e5.chunk.js.LICENSE",
+    "static/media/logo.svg": "/deploy-with-github-actions/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.18807cfa.js",
+    "static/js/2.8dbfc4e5.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.d8a6780b.chunk.js"
+  ]
+}
