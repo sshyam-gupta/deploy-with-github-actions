@@ -28,6 +28,7 @@ jobs:
       run: |
         echo $GITHUB_TOKEN $GITHUB_ACTOR $GITHUB_REPOSITORY
         yarn install
+        yarn build
         git config --global user.email "shyamsundar.g@kiprosh.com"
         git config --global user.name "Shyam Gupta"
         git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
