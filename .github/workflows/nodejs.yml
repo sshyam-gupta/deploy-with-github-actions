@@ -20,9 +20,20 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Clean install dependencies, build and deploy
+    - name: Clean install dependencies, build
       run: |
         yarn install
-        git config --global user.email "shyamsundar.g@kiprosh.com"
-        git config --global user.name "sshyam-gupta"
-        yarn deploy
+        yarn build
+    - name: Publish to surge.sh
+      uses: dswistowski/surge-sh-action@v1.0.0
+      with:
+        domain: 'redundant-sun.surge.sh'
+        login: shyamm@outlook.com
+        token: ${{ secrets.SURGE_TOKEN }}
+        project: 'build/'
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: build
+        path: build
+
