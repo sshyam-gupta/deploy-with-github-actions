@@ -23,5 +23,6 @@ jobs:
     - name: Clean install dependencies, build and deploy
       run: |
         yarn install
-        yarn build
+        git config --global user.email "shyamsundar.g@kiprosh.com"
+        git config --global user.name "sshyam-gupta"
         yarn deploy
