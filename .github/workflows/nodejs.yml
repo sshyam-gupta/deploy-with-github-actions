@@ -21,9 +21,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Clean install dependencies, build and deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
       run: |
+        echo $GITHUB_TOKEN $GITHUB_ACTOR $GITHUB_REPOSITORY
         yarn install
-        git config --global user.email "sshyam-gupta@users.noreply.github.com"
+        git config --global user.email "shyamsundar.g@kiprosh.com"
         git config --global user.name "Shyam Gupta"
-        git remote set-url origin https://${{ secrets.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}@github.com/sshyam-gupta/${{ secrets.GITHUB_REPOSITORY }}.git
+        git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/sshyam-gupta/$GITHUB_REPOSITORY.git
         yarn deploy
