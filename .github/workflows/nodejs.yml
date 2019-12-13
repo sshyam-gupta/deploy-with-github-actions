@@ -26,10 +26,15 @@ jobs:
         GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
         GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
       run: |
-        echo $GITHUB_TOKEN $GITHUB_ACTOR $GITHUB_REPOSITORY
         yarn install
         yarn build
         git config --global user.email "shyamsundar.g@kiprosh.com"
         git config --global user.name "Shyam Gupta"
         git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
         yarn run deploy
+
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: build
+        path: build
