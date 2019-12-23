@@ -7,37 +7,37 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x]
-
+    runs-on: windows-latest # The first job utilizes windows-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Clean install dependencies, build and deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
-        GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
-      run: |
-        yarn install
-        yarn build
+      - name: Checkout
+        uses: actions/checkout@v1
         
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: 'build' # 
+      - name: Install # The project is built using npm and placed in the 'build' folder.
+        run: |
+          npm install
+          npm build
+          
+      - name: Upload Artifacts # The project is then uploaded as an artifact named 'site'.
+        uses: actions/upload-artifact@v1
+        with:
+          name: site
+          path: build
+          
+  deploy:
+    needs: [build] # The second job must depend on the first one to complete before running, and uses ubuntu-latest instead of windows.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+ 
+      - name: Download Artifacts # The built project is downloaded into the 'site' folder.
+        uses: actions/download-artifact@v1
+        with:
+          name: site
 
-    - name: Archive production artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: build
-        path: build
+      - name: Build and Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: 'site' # The deployment folder should match the name of the artifact. Even though our project builds into the 'build' folder the artifact name of 'site' must be placed here.
