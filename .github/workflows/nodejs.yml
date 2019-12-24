@@ -9,6 +9,7 @@ jobs:
         
       - name: Install # The project is built using npm and placed in the 'build' folder.
         run: |
+          rm -rf build
           yarn install
           yarn build
           
