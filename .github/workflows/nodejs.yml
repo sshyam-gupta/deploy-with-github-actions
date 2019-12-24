@@ -1,40 +1,36 @@
 name: Build and Deploy
-on: [push]
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   build:
-    runs-on: ubuntu-latest # The first job utilizes windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-        
-      - name: Install # The project is built using npm and placed in the 'build' folder.
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Clean Install dependencies and Build
         run: |
-          rm -rf build
           yarn install
+          rm -rf build
           yarn build
-          
-      - name: Build and Deploy
+
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: 'build'
 
-# deploy:
-#   needs: [build] # The second job must depend on the first one to complete before running, and uses ubuntu-latest instead of windows.
-#   runs-on: ubuntu-latest
-#   steps:
-#     - name: Checkout
-#       uses: actions/checkout@v1
-
-#     - name: Download Artifacts # The built project is downloaded into the 'site' folder.
-#       uses: actions/download-artifact@v1
-#       with:
-#         name: site
-
-#     - name: Build and Deploy
-#       uses: JamesIves/github-pages-deploy-action@releases/v3
-#       with:
-#         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-#         BRANCH: gh-pages
-#         FOLDER: 'build' # The deployment folder should match the name of the artifact. Even though our project builds into the 'build' folder the artifact name of 'site' must be placed here.
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
