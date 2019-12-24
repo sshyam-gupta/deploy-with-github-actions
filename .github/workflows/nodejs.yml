@@ -9,7 +9,6 @@ jobs:
         
       - name: Install # The project is built using npm and placed in the 'build' folder.
         run: |
-          rm -rf build
           yarn install
           yarn build
           
@@ -19,6 +18,7 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: 'build'
+          CLEAN: true
 
 # deploy:
 #   needs: [build] # The second job must depend on the first one to complete before running, and uses ubuntu-latest instead of windows.
